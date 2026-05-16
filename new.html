@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Waste Segregation Assistant</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            background: linear-gradient(to right, #d4fc79, #96e6a1);
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .container{
+            width:90%;
+            max-width:500px;
+            background:white;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 5px 15px rgba(0,0,0,0.2);
+            text-align:center;
+        }
+
+        h1{
+            color:#2e7d32;
+            margin-bottom:15px;
+        }
+
+        p{
+            color:#555;
+            margin-bottom:20px;
+        }
+
+        input{
+            width:100%;
+            padding:12px;
+            border:2px solid #4caf50;
+            border-radius:8px;
+            outline:none;
+            margin-bottom:15px;
+            font-size:16px;
+        }
+
+        button{
+            background:#4caf50;
+            color:white;
+            border:none;
+            padding:12px 20px;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+            transition:0.3s;
+        }
+
+        button:hover{
+            background:#2e7d32;
+        }
+
+        .result{
+            margin-top:20px;
+            padding:15px;
+            border-radius:10px;
+            display:none;
+            font-size:18px;
+        }
+
+        .wet{
+            background:#c8e6c9;
+            color:#1b5e20;
+        }
+
+        .dry{
+            background:#bbdefb;
+            color:#0d47a1;
+        }
+
+        .hazard{
+            background:#ffcdd2;
+            color:#b71c1c;
+        }
+
+        .recycle{
+            background:#fff9c4;
+            color:#f57f17;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Smart Waste Segregation Assistant</h1>
+
+        <p>Enter the waste item name to know its category.</p>
+
+        <input type="text" id="wasteInput" placeholder="Example: Banana Peel">
+
+        <button onclick="checkWaste()">Check Waste Type</button>
+
+        <div class="result" id="resultBox"></div>
+    </div>
+
+    <script>
+        function checkWaste(){
+
+            let waste = document.getElementById("wasteInput").value.toLowerCase().trim();
+
+            let resultBox = document.getElementById("resultBox");
+
+            let wetWaste = [
+                "banana peel",
+                "vegetable",
+                "food",
+                "fruit",
+                "egg shell",
+                "tea waste"
+            ];
+
+            let dryWaste = [
+                "paper",
+                "cardboard",
+                "plastic cover",
+                "wrapper",
+                "cloth"
+            ];
+
+            let recyclableWaste = [
+                "bottle",
+                "plastic bottle",
+                "glass",
+                "can",
+                "metal"
+            ];
+
+            let hazardousWaste = [
+                "battery",
+                "medicine",
+                "chemical",
+                "bulb",
+                "paint"
+            ];
+
+            resultBox.style.display = "block";
+
+            if(wetWaste.includes(waste)){
+                resultBox.className = "result wet";
+                resultBox.innerHTML =
+                "🌱 Wet Waste<br><br>" +
+                "This waste is biodegradable and can be used for composting.";
+            }
+
+            else if(dryWaste.includes(waste)){
+                resultBox.className = "result dry";
+                resultBox.innerHTML =
+                "📦 Dry Waste<br><br>" +
+                "This waste should be placed in the dry waste bin.";
+            }
+
+            else if(recyclableWaste.includes(waste)){
+                resultBox.className = "result recycle";
+                resultBox.innerHTML =
+                "♻ Recyclable Waste<br><br>" +
+                "This item can be recycled. Send it to a recycling center.";
+            }
+
+            else if(hazardousWaste.includes(waste)){
+                resultBox.className = "result hazard";
+                resultBox.innerHTML =
+                "⚠ Hazardous Waste<br><br>" +
+                "Handle carefully and dispose through authorized collection.";
+            }
+
+            else{
+                resultBox.className = "result";
+                resultBox.innerHTML =
+                "❓ Waste type not found.<br><br>" +
+                "Please enter a valid waste item.";
+            }
+        }
+    </script>
+
+</body>
+</html>
